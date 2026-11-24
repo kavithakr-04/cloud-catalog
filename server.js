@@ -1,12 +1,18 @@
 
 const express = require('express');
+const path = require('path');
+
 const app = express();
 
-// Set the port
 const PORT = process.env.PORT || 8080;
 
-// Serve the public folder
-app.use(express.static('public'));
+// Serve static files from public folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Homepage route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 // API 1: Cloud Services
 app.get('/api/services', (req, res) => {
